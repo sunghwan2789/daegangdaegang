@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>인문대 강의실 목록</h2>
+{% for room in rooms.all %}
+{% if room.class_number.0 == '6' %}
+    <h3>{{ room.class_number }}</h3>
+    <p><a href = "{% url 'detail' room.id %}"> 자세히 보기</a></p>
+{% endif %}
+{% endfor %}
+
+{% endblock %}
+
+

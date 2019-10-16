@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>강의실 위치 : {{room.location}}</h3>
+<p>강의실 층 : {{room.floor}}</p>
+<p>강의실 번호 : {{room.class_number}}</p>
+<p>사용가능한 비품 : {{room.tool}}</h3>
+<p>수용인원 : {{room.people_number}}</p>
+<style>
+    .checked {
+        background: yellow;
+    }
+
+    button{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:30px;
+  font-size:1.0em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+
+button:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+
+button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+
+button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+
+button:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+</style>
+
+<label class="dates checked"><input type="checkbox" name="date[]" value="2019-08-01" checked> 6시</label>
+<label class="dates checked"><input type="checkbox" name="date[]" value="2019-08-02" checked> 7시</label>
+<label class="dates "><input type="checkbox" name="date[]" value="2019-08-03"> 8시</label>
+<label class="dates "><input type="checkbox" name="date[]" value="2019-08-04"> 9시</label>
+<label class="dates "><input type="checkbox" name="date[]" value="2019-08-05"> 10시</label>
+
+<script>
+    // class가 dates인 label에 대해서 클릭 이벤트 추가
+    for (let label of document.querySelectorAll('.dates')) {
+        const checkbox = label.querySelector('input[type=checkbox]')
+        // 체크박스에 체크하면 label에 checked 클래스 추가하고 아니면 제거
+        checkbox.addEventListener('change', (e) => {
+            if (checkbox.checked) {
+                label.classList.add('checked')
+            } else {
+                label.classList.remove('checked')
+            }
+        })
+    }
+
+function Reserve(){
+
+    alert("예약이 완료되었습니다.")
+}
+</script>
+<br>
+<button type ="submit" onClick = "Reserve()" >예약하기 </button>
+{% endblock %}
+
+

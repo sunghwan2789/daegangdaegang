@@ -1,0 +1,29 @@
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+#login-panel {
+    text-align: right;
+    border-bottom: 1px solid #000;
+}
+
+.container {
+    display: flex;
+}
+.container::before,
+.container::after {
+    content: '';
+    flex: 1;
+}
+
+
+footer {
+    background-color: darkgray;
+    background-image: url(slogan.png);
+    height: 398px;
+}
+
+

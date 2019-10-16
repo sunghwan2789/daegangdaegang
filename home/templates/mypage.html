@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>대강대강</title>
+</head>
+<body>
+    <div id="login-panel">
+        {% if not user.is_authenticated %}
+            {{confirm}}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign up</a>
+        {% else %}
+            <b>{{user.username}}</b> 로그인
+        {% endif%}
+
+    </div>
+
+    <div id="reserve-list">
+
+    </div>
+</body>
+</html>
+{% endblock %}

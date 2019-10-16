@@ -1,0 +1,88 @@
+<html>
+<head>
+    <title>daegangdaegang</title>
+    <script>
+
+    function check(re, what, message) {
+        //alert("test"+what.value);
+        if(re.test(what.value)) {
+            return true;
+        }
+        alert(message);
+        what.value = "";
+        what.focus();
+        //return false;
+    }
+    function validateForSignUp(){
+        //alert("check!!!!!!!");
+        var re1 = /^[a-zA-Z0-9]{4,12}$/;  // 아이디와 패스워드가 적합한지 검사할 정규식
+        var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;   // 이메일이 적합한지 검사할 정규식
+        var re3 = /^[0-9]{3}[-]+[0-9]{4}[-]+[0-9]{4}$/; // 핸드폰 번호 입력 검증 정규식
+        var id = document.getElementById('id');
+        var password1 = document.getElementById("password1");
+        var password2 = document.getElementById("password2");
+        var email = document.getElementById("email");
+        var phone = document.getElementById("phoneNumber");
+        var gender = document.getElementsByName("gender");
+        //alert("ffffffff");
+        //alert(id.value.match(/^[0-9]+$/));
+        //alert((/^[0-9]+$/).test(id.value));
+
+        //alert("cccccc");
+        if ((!check(re1,id,"아이디는 4~12자 영문 대소문자와 숫자로만 입력")) || (!check(re1,password1,"패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) || (!check(re2,email,"적합하지 않은 이메일 형식입니다.")) || (!check(re3,phone,"핸드폰 번호를 양식에 맞게 작성하세요."))) {
+            return false;
+        }
+        //alert(password1.value==password2.value);
+        if (password1.value!=password2.value){
+            alert("비밀번호 확인 오류. 다시 확인해주세요.");
+            password2.value="";
+            password2.focus();
+            return false;
+        }
+
+        //var radios = document.getElementsByName("gender");
+        var formValid = false;
+
+        var i = 0;
+        while (!formValid && i < gender.length) {
+            if (gender[i].checked) formValid = true;
+            i++;
+        }
+
+        if (!formValid){
+            alert("Must check some genderic option!");
+            return formValid;
+        }
+        document.getElementById("form1").method = "POST";
+        document.getElementById("form1").action = "{% url 'signup' %}";
+        alert("가입이 완료되었습니다.");
+    }
+
+    </script>
+</head>
+<body>
+    <h1>Sign Up!</h1>
+    <form id = "form1" method="POST" action="">
+        {% csrf_token %}
+        UserID : <br>
+        <input id ="id" name = "id" type="text" value=""><br>
+        Password : <br>
+        <input id = "password1" name = "password1" type="password" value=""><br>
+        Confirm Password : <br>
+        <input id = "password2" name="password2" type = "password" value=""><br>
+        Email : <br>
+        <input id = "email" name = "email" type="text" value="" style="width:170px">ex)abc123@likelion.org<br>
+        PhoneNumber : <br>
+        <input id = "phoneNumber" name = "phoneNumber" type="text" value="" maxlength="13"></input>
+        ex) 010-0000-0000<br>
+        Gender : <br>
+        <label for="s1">female</label>
+            <input type="radio" name="gender" value="female"/>
+            <br>
+        <label for="s2">male</label>
+            <input type="radio" name="gender" value="male"/>
+            <br>
+        <input type = "submit" value="Sign Up!" onClick = "validateForSignUp()">
+    </form>
+</body>
+</html>

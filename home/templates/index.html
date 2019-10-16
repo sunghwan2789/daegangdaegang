@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>대강대강</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <img id="map" src="{% static 'map.jpg' %}" usemap="#maparea">
+        <map name="maparea" id="maparea">
+            <area alt="미디어랩스"
+                shape="poly" coords="194,357, 244,349, 284,366, 287,402, 274,413, 244,396, 198,405"
+                href="{% url 'info_me' %}"
+                data-name="미랩">
+            <area alt="인문대"
+                shape="poly" coords="639,204, 681,203, 724,240, 723,270, 676,270, 639,229"
+                href="{% url 'info_cul' %}"
+                data-name="인문대">
+            <area alt="자연대"
+                shape="poly" coords="397,226, 518,224, 527,235, 526,261, 398,262"
+                href="{% url 'info_na' %}"
+                data-name="자연대">
+        </map>
+    </div>
+
+    <footer>
+
+    </footer>
+
+
+    <div id="area-미랩" hidden>
+        <b>미디어랩스</b><br>
+        (강의실)<br>
+        (회의실)
+    </div>
+    <div id="area-인문대" hidden>
+        <b>인문대</b><br>
+        (강의실)
+    </div>
+    <div id="area-자연대" hidden>
+        <b>자연대</b><br>
+        (강의실)
+    </div>
+
+    <!-- 건물 정보 표시 -->
+    <script>
+        // 건물 위에 마우스를 올렸을 때의 동작 정의
+        for (let i of document.querySelectorAll('#maparea area')) {
+            // 해당 건물을 설명하는 div 태그의 id
+            let areaId = `#area-${i.dataset.name}`
+            // 해당 건물을 설명하는 div
+            const area = document.querySelector(areaId)
+            // 마우스를 올렸을 때 div 보이기
+            i.addEventListener('mouseover', (e) => {
+                area.hidden = false;
+                // div를 마우스 위치에 나타내기
+                area.style.position = 'absolute'
+                area.style.top = `${e.pageY}px`
+                area.style.left = `${e.pageX}px`
+                area.style.width = 'auto'
+                area.style.background = 'white'
+                area.style.border = '2px solid black'
+                area.style.pointerEvents = 'none'
+            })
+            // 마우스를 움직이면 div 움직이기
+            // i.addEventListener('mousemove', (e) => {
+            //   console.log(i, 'mousemove')
+            // })
+            // 마우스를 치웠을 때 div 숨기기
+            i.addEventListener('mouseout', (e) => {
+                area.hidden = true;
+            })
+        }
+    </script>
+    <!-- /건물 정보 표시 -->
+    <!-- imageMapResizer -->
+    <script src="{% static 'imageMapResizer.min.js' %}"></script>
+    <script>imageMapResize();</script>
+    <!-- /imageMapResizer -->
+</body>
+</html>
+{% endblock %}
