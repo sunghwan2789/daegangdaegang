@@ -12,6 +12,7 @@ def signup(request):
         user = User.objects.create_user(username=request.POST['id'], password=request.POST['password1'], email=request.POST['email'])
         user.profile.phoneNumber = request.POST['phoneNumber']
         user.profile.gender = request.POST['gender']
+        user.save()
         auth.login(request, user)
         return redirect('index')
     return render(request,'signup.html')
